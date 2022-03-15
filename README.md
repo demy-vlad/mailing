@@ -1,4 +1,3 @@
-## Project instructions
 ### Actual branch - main.
 ### How to run in production:
 ```sh
