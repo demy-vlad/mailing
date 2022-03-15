@@ -201,7 +201,7 @@ class Protonmail():
         self.driver.find_element_by_xpath("//input[@id='idSelectAll']").click()
         time.sleep(2)
         # # Select last
-        self.driver.find_element_by_css_selector("body > div.app-root > div.content-container.flex.flex-column.flex-nowrap.no-scroll > div > div > div.main.ui-standard.flex.flex-column.flex-nowrap.flex-item-fluid > div > main > div > div.h100.scroll-if-needed.scroll-smooth-touch > div > div:nth-child(2) > label").click()
+        self.driver.find_element_by_xpath("/html/body/div[1]/div[3]/div/div/div[2]/div/main/div/div[1]/div/div[2]/label").click()
         # # Click move to trash
         self.driver.find_element_by_xpath("/html/body/div[1]/div[3]/div/div/div[2]/div/nav/div[1]/button[4]").click()
         # You have 1 message stored in this folder
@@ -271,7 +271,7 @@ if __name__ == '__main__':
     mailing = Protonmail(email='PutynHuilo@protonmail.com', password='VBdkNkv4', browser='Chrome')
     mailing.login()
     mailing.sending_messages_ten_email()
-    mailing.data_from_all_incoming_emails()
-    mailing.send_collected_data_to_yourself()
+    # mailing.data_from_all_incoming_emails()
+    # mailing.send_collected_data_to_yourself()
     mailing.delete_all_received_emails()
     mailing.tearDown()
