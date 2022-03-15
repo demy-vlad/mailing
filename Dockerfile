@@ -26,4 +26,4 @@ RUN pip install selenium==3.141.0
 
 # run
 ENTRYPOINT ["python3"]
-CMD ["main.py"]
+CMD ["test_mailing.py"]
