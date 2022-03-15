@@ -32,7 +32,7 @@ class Protonmail():
         options.add_argument('--window-size=800,700')
         options.add_argument('--headless')
         options.add_argument('--disable-gpu')
-        options.headless = False # Using a headless browser version
+        options.headless = True # Using a headless browser version
         options.add_experimental_option('excludeSwitches', ['enable-logging'])
         # Store credentials for login
         self.email = email
@@ -234,7 +234,7 @@ class Protonmail():
         theme = mailing.random_string()
         body = mailing.random_string()
         numbers = ['0','1','2','3','4','5','6','7','8','9']
-
+        
         sum_theme_body = theme + body
         text_without_numbers = sum_theme_body
 

@@ -18,5 +18,5 @@ https://chromedriver.chromium.org/downloads
 $ python 3 -m venv env
 $ . env/bin/activate
 $ pip install -r requirements.txt
-$ python main.py runserver
+$ python test_mailing.py runserver
 ```
