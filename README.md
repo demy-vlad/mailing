@@ -1,18 +1,13 @@
-## Basic Local Alignment Search Tool
-### The name of the test bot
-```sh
-Bot name: @nucleotide_blast_bot
-URL: https://t.me/nucleotide_blast_bot
-```
+## Project instructions
 ### Actual branch - main.
 ### How to run in production:
 ```sh
-$ docker build -t blast .
-$ docker run blast
+$ docker build -t mailing .
+$ docker run mailing
 ```
 #### How stop in production:
 ```sh
-$ docker stop blast
+$ docker stop mailing
 ```
 ### How to local run:
 #### Download WebDriver.
