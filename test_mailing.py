@@ -12,10 +12,16 @@ import random
 
 LOGIN_URL = 'https://mail.protonmail.com/'
 
+# Emails for sending messages
 email = ['PutynHuilo@protonmail.com',
         'PutynHuilo@protonmail.com',
         'PutynHuilo@protonmail.com',
-        'PutynHuilo@protonmail.com', 
+        'PutynHuilo@protonmail.com',
+        'PutynHuilo@protonmail.com',
+        'PutynHuilo@protonmail.com',
+        'PutynHuilo@protonmail.com',
+        'PutynHuilo@protonmail.com',
+        'PutynHuilo@protonmail.com',  
         'PutynHuilo@protonmail.com'
         ]
 
