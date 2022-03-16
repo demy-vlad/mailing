@@ -13,26 +13,14 @@ import random
 LOGIN_URL = 'https://mail.protonmail.com/'
 
 # Emails for sending messages
-email = ['PutynHuilo@protonmail.com',
-        'PutynHuilo@protonmail.com',
-        'PutynHuilo@protonmail.com',
-        'PutynHuilo@protonmail.com',
-        'PutynHuilo@protonmail.com',
-        'PutynHuilo@protonmail.com',
-        'PutynHuilo@protonmail.com',
-        'PutynHuilo@protonmail.com',
-        'PutynHuilo@protonmail.com',  
+email = ['PutynHuilo@protonmail.com', 
         'PutynHuilo@protonmail.com'
         ]
 
 class Protonmail():
     def __init__(self, email, password, browser='Chrome'):
         options = Options()
-        options.add_argument('--no-sandbox')
-        options.add_argument('--window-size=800,700')
-        options.add_argument('--headless')
-        options.add_argument('--disable-gpu')
-        options.headless = True # Using a headless browser version
+        options.headless = False # Using a headless browser version
         options.add_experimental_option('excludeSwitches', ['enable-logging'])
         # Store credentials for login
         self.email = email
@@ -43,9 +31,8 @@ class Protonmail():
         elif browser == 'Firefox':
             # Set it to Firefox
             self.driver = webdriver.Firefox(options=options, executable_path=GeckoDriverManager().install())
-        self.driver.implicitly_wait(10)
+        self.driver.implicitly_wait(20)
         self.driver.get(LOGIN_URL)
-        time.sleep(1) # Wait for some time to load
 
     def login(self):
         '''
@@ -57,11 +44,10 @@ class Protonmail():
         password_element = self.driver.find_element_by_xpath('//*[@id="password"]')
         password_element.send_keys(self.password) # Give password as input too
 
-        login_button = self.driver.find_element_by_xpath('/html/body/div[1]/div[3]/div/div/main/div[2]/form/button')
+        login_button = self.driver.find_element_by_css_selector('button.button')
         login_button.click() # Send mouse click
-
-        time.sleep(5) # Wait for 5 seconds for the page to show up
-        # assert self.driver.title == 'Inbox | PutynHuilo@protonmail.com | ProtonMail'
+    
+        assert self.driver.title == 'Proton Account'
     
     def sending_messages_ten_email(self):
         '''
@@ -75,8 +61,9 @@ class Protonmail():
         else:
             for emails in email:
                 # Click button new message
-                self.driver.find_element_by_xpath('/html/body/div[1]/div[3]/div/div/div[1]/div[2]/button').click()
-
+                email_address = self.driver.find_element_by_css_selector('button.text-bold.mt0-25.w100.no-mobile').click()
+                # Give email address
+                # email_address = self.driver.find_elements_by_css_selector('input#to-composer-1310')
                 # Give email address
                 email_address = self.driver.find_element_by_xpath('/html/body/div[1]/div[4]/div/div/div/div/div/div[2]/div/div/div/div/div/div/input')
                 email_address.click()
@@ -92,20 +79,19 @@ class Protonmail():
                 subject.send_keys(text_subject)
 
                 # Send modul
-                self.driver.find_element_by_xpath('//body/div[1]/div[4]/div[1]/div[1]/div[1]/div[1]/section[1]/div[1]/div[1]/div[2]/button[14]').click()
+                self.driver.find_element_by_css_selector('button.editor-toolbar-button:nth-of-type(14)').click()
                 self.driver.find_element_by_xpath("//span[contains(text(),'Plain text')]").click()
 
                 # Text message
                 text_message = mailing.random_string()
                 logger.info(f'Random string message: {text_message}')
-                message = self.driver.find_element_by_xpath('//body/div[1]/div[4]/div[1]/div[1]/div[1]/div[1]/section[1]/div[1]/div[1]/div[1]/textarea[1]')
+                message = self.driver.find_element_by_css_selector('textarea.absolute-cover')
                 message.click()
                 message.clear()
                 message.send_keys(f'{text_message}')
 
                 # Send email button
-                self.driver.find_element_by_xpath("//body/div[1]/div[4]/div[1]/div[1]/div[1]/footer[1]/div[1]/div[1]").click()
-                time.sleep(5)
+                self.driver.find_element_by_css_selector("button.button-group-item.composer-send-button").click()
                 text_send = self.driver.find_element_by_xpath("//div[contains(text(),'Message sent')]")
 
                 logger.warning(f'Message sending status: {text_send.text}')
@@ -122,24 +108,22 @@ class Protonmail():
         url_email = [] #  URL e-mail list
 
         # Click the button Inbox
-        self.driver.find_element_by_xpath('/html/body/div[1]/div[3]/div/div/div[1]/div[4]/nav/div/ul/li[1]/a').click()
+        self.driver.find_element_by_css_selector('a.navigation-link.active').click()
         # GET URL letters 
         all_elements = self.driver.find_elements_by_class_name('flex')
         # Delete None
         for all_element in all_elements:
                 element = all_element.get_attribute('data-element-id')
-                if element is None:
-                    pass
-                else:   
+                if not element is None:
                     url_email.append(element) #  Added URL e-mail list
         # URL e-mail list
         for url_inbox in url_email: 
             # https://mail.protonmail.com/u/3/inbox/
             self.driver.get(f'https://mail.protonmail.com/u/3/inbox/{url_inbox}')
-            key_mail = self.driver.find_element_by_xpath('/html/body/div[1]/div[3]/div/div/div[2]/div/main/section/header/div[1]/h1/span')
+            key_mail = self.driver.find_element_by_css_selector('h1.message-conversation-summary-header span')
             key.append(key_mail.text) #  Added is theme of mail
             
-            value_body_of_mail = self.driver.find_element_by_xpath('/html/body/div[1]/div[3]/div/div/div[2]/div/main/section/div/div/article[1]/div[2]/div')
+            value_body_of_mail = self.driver.find_element_by_css_selector('h1.message-conversation-summary-header span')
             value.append(value_body_of_mail.text) #  Added is body of mail
 
         # Added dictionary: key, value
@@ -155,7 +139,7 @@ class Protonmail():
         '''
 
         # button new message
-        self.driver.find_element_by_xpath('/html/body/div[1]/div[3]/div/div/div[1]/div[2]/button').click()
+        self.driver.find_element_by_css_selector('button.button-large').click()
 
         # Email address
         email_address = self.driver.find_element_by_xpath('/html/body/div[1]/div[4]/div/div/div/div/div/div[2]/div/div/div/div/div/div/input')
@@ -172,7 +156,7 @@ class Protonmail():
         subject.send_keys(text_subject)
 
         # Send modul
-        self.driver.find_element_by_xpath('//body/div[1]/div[4]/div[1]/div[1]/div[1]/div[1]/section[1]/div[1]/div[1]/div[2]/button[14]').click()
+        self.driver.find_element_by_css_selector('button.editor-toolbar-button:nth-of-type(14)').click()
         self.driver.find_element_by_xpath("//span[contains(text(),'Plain text')]").click()
 
         # Text message
@@ -183,15 +167,13 @@ class Protonmail():
 
         text_message = (f"Received mail on theme {theme} with message: {body}. It contains {len(count_of_letters)} letters and {len(count_of_numbers)} numbers")
         logger.info(f'Send collected data to yourself as: {text_message}')
-        message = self.driver.find_element_by_xpath('//body/div[1]/div[4]/div[1]/div[1]/div[1]/div[1]/section[1]/div[1]/div[1]/div[1]/textarea[1]')
+        message = self.driver.find_element_by_css_selector('textarea.absolute-cover')
         message.click()
         message.clear()
         message.send_keys(f'{text_message}')
 
         # Send email button  
-        self.driver.find_element_by_xpath("//body/div[1]/div[4]/div[1]/div[1]/div[1]/footer[1]/div[1]/div[1]").click()
-        time.sleep(5)
-
+        self.driver.find_element_by_css_selector("button.button-group-item.composer-send-button").click()
         text_send = self.driver.find_element_by_xpath("//div[contains(text(),'Message sent')]")
 
         logger.warning(f'Message sending status: {text_send.text}')
@@ -202,30 +184,26 @@ class Protonmail():
         6.	Delete all received emails except the last one.
         '''
         # Button Span
-        self.driver.find_element_by_xpath('/html/body/div[1]/div[3]/div/div/div[1]/div[4]/nav/div/ul/li[3]/a/span/span[1]').click()
+        self.driver.find_element_by_css_selector('a.navigation-link.active').click()
         # # Select all messages
         self.driver.find_element_by_xpath("//input[@id='idSelectAll']").click()
-        time.sleep(2)
         # # Select last
-        self.driver.find_element_by_xpath("/html/body/div[1]/div[3]/div/div/div[2]/div/main/div/div[1]/div/div[2]/label").click()
+        self.driver.find_element_by_css_selector("div.flex.flex-nowrap:nth-child(2) > label.item-checkbox-label").click()
         # # Click move to trash
-        self.driver.find_element_by_xpath("/html/body/div[1]/div[3]/div/div/div[2]/div/nav/div[1]/button[4]").click()
+        self.driver.find_element_by_css_selector("div.flex:nth-child(1) > button.flex.flex-item-noshrink:nth-child(7)").click()
         # You have 1 message stored in this folder
-        last_message = self.driver.find_element_by_xpath("//strong[contains(text(),'1 message')]")
+        last_message = self.driver.find_element_by_css_selector("p.mb2.text-keep-space:nth-child(2) > strong:nth-child(2)")
 
-        # assert last_message.text == "1 message"
-        time.sleep(3)
+        assert last_message.text == "1 conversation"
         logger.warning(f'You have 1 message stored in this folder: {last_message.text}')
 
-    def random_string(self):        
-        while True:
-            chars = ''
-            for x in range(10):
-                chars = chars + \
-                    random.choice(
-                        list('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'))
-            # self.chars = chars
-            return chars
+    def random_string(self): 
+        chars = ''
+        for x in range(10):
+            chars = chars + \
+                random.choice(
+                    list('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'))
+        return chars
 
     def text_without_numbers(self):
         '''
