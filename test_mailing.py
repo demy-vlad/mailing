@@ -51,7 +51,7 @@ class Protonmail():
 
         login_button = self.driver.find_element_by_css_selector('button.button')
         login_button.click() # Send mouse click
-    
+        self.driver.set_page_load_timeout(10)
         assert self.driver.title == 'Proton Account'
     
     def sending_messages_ten_email(self):
@@ -99,6 +99,7 @@ class Protonmail():
                 self.driver.find_element_by_css_selector("button.button-group-item.composer-send-button").click()
                 text_send = self.driver.find_element_by_xpath("//div[contains(text(),'Message sent')]")
 
+                self.driver.set_page_load_timeout(20)
                 logger.warning(f'Message sending status: {text_send.text}')
                 # assert text_send.text == 'Message sent'
 
@@ -181,6 +182,7 @@ class Protonmail():
         self.driver.find_element_by_css_selector("button.button-group-item.composer-send-button").click()
         text_send = self.driver.find_element_by_xpath("//div[contains(text(),'Message sent')]")
 
+        self.driver.set_page_load_timeout(10)
         logger.warning(f'Message sending status: {text_send.text}')
         assert text_send.text == 'Message sent'
  
@@ -199,6 +201,8 @@ class Protonmail():
         # You have 1 message stored in this folder
         last_message = self.driver.find_element_by_css_selector("p.mb2.text-keep-space:nth-child(2) > strong:nth-child(2)")
 
+        self.driver.set_page_load_timeout(10)
+        print(last_message.text)
         assert last_message.text == "1 conversation"
         logger.warning(f'You have 1 message stored in this folder: {last_message.text}')
 
@@ -257,7 +261,7 @@ class Protonmail():
 
 if __name__ == '__main__':
     # Enter your login credentials here
-    mailing = Protonmail(email='PutynHuilo@protonmail.com', password='VBdkNkv4', browser='Chrome')
+    mailing = Protonmail(email='g12Q2dQCux@protonmail.com', password='g12Q2dQCux', browser='Chrome')
     mailing.login()
     mailing.sending_messages_ten_email()
     mailing.data_from_all_incoming_emails()
