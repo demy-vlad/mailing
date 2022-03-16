@@ -1,12 +1,9 @@
-# from asyncio.windows_events import NULL
-# from turtle import speed
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from webdriver_manager.firefox import GeckoDriverManager
 from webdriver_manager.chrome import ChromeDriverManager
 from loguru import logger
-import time
 import random
 
 
@@ -103,7 +100,7 @@ class Protonmail():
                 text_send = self.driver.find_element_by_xpath("//div[contains(text(),'Message sent')]")
 
                 logger.warning(f'Message sending status: {text_send.text}')
-                assert text_send.text == 'Message sent'
+                # assert text_send.text == 'Message sent'
 
     def data_from_all_incoming_emails(self):
         '''
