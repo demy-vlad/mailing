@@ -13,8 +13,16 @@ import random
 LOGIN_URL = 'https://mail.protonmail.com/'
 
 # Emails for sending messages
-email = ['PutynHuilo@protonmail.com', 
-        'PutynHuilo@protonmail.com'
+email = ['media@cbr.ru', 
+        'sales@banki.ru',
+        'info@banki.ru',
+        'bank@abr.ru',
+        'main@asiainvestbank.ru',
+        'info@absolutbank.ru',
+        'info@avangard.ru',
+        'bank@agroros.ru',
+        'main@asiainvestbank.ru',
+        'cc@bspb.ru'
         ]
 
 class Protonmail():
