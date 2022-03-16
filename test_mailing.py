@@ -10,10 +10,7 @@ import random
 LOGIN_URL = 'https://mail.protonmail.com/'
 
 # Emails for sending messages
-email = ['media@cbr.ru', 
-        'sales@banki.ru',
-        'info@banki.ru',
-        'bank@abr.ru',
+email = [
         'main@asiainvestbank.ru',
         'info@absolutbank.ru',
         'info@avangard.ru',
@@ -95,11 +92,11 @@ class Protonmail():
                 message.clear()
                 message.send_keys(f'{text_message}')
 
+                self.driver.set_page_load_timeout(20)
                 # Send email button
                 self.driver.find_element_by_css_selector("button.button-group-item.composer-send-button").click()
                 text_send = self.driver.find_element_by_xpath("//div[contains(text(),'Message sent')]")
 
-                self.driver.set_page_load_timeout(20)
                 logger.warning(f'Message sending status: {text_send.text}')
                 # assert text_send.text == 'Message sent'
 
@@ -191,7 +188,7 @@ class Protonmail():
         6.	Delete all received emails except the last one.
         '''
         # Button Span
-        self.driver.find_element_by_css_selector('a.navigation-link.active').click()
+        self.driver.find_element_by_css_selector('li.navigation-item:nth-child(3) > a.navigation-link.active').click()
         # # Select all messages
         self.driver.find_element_by_xpath("//input[@id='idSelectAll']").click()
         # # Select last
@@ -199,11 +196,11 @@ class Protonmail():
         # # Click move to trash
         self.driver.find_element_by_css_selector("div.flex:nth-child(1) > button.flex.flex-item-noshrink:nth-child(7)").click()
         # You have 1 message stored in this folder
-        last_message = self.driver.find_element_by_css_selector("p.mb2.text-keep-space:nth-child(2) > strong:nth-child(2)")
+        last_message = self.driver.find_element_by_css_selector("p.mb2.text-keep-space:nth-child(2) > strong")
 
         self.driver.set_page_load_timeout(10)
         print(last_message.text)
-        assert last_message.text == "1 conversation"
+        assert last_message.text == "1 message"
         logger.warning(f'You have 1 message stored in this folder: {last_message.text}')
 
     def random_string(self): 
