@@ -73,7 +73,7 @@ class Protonmail:
 
                 # Give email address
                 email_address = self.driver.find_element(By.CSS_SELECTOR,
-                                                         'div.flex-item-fluid:nth-of-type(1) > div.flex-item-fluid:nth-of-type(1) > div.composer-addresses-container > div.flex-item-fluid > div.flex-item-fluid > input')
+                    'div.flex-item-fluid:nth-of-type(1) > div.flex-item-fluid:nth-of-type(1) > div.composer-addresses-container > div.flex-item-fluid > div.flex-item-fluid > input')
                 email_address.click()
                 email_address.send_keys(emails)
                 email_address.send_keys(Keys.ENTER)
@@ -83,7 +83,7 @@ class Protonmail:
                 text_subject = mailing.random_string()
                 logger.info(f'Random string subject: {text_subject}')
                 subject = self.driver.find_element(By.CSS_SELECTOR,
-                                                   'div.flex-item-fluid:nth-of-type(1) > div.flex-item-fluid:nth-of-type(1) > div.composer-meta > div.mt0.mb0-5 > div.flex-item-fluid > div.flex-item-fluid > input')
+                    'div.flex-item-fluid:nth-of-type(1) > div.flex-item-fluid:nth-of-type(1) > div.composer-meta > div.mt0.mb0-5 > div.flex-item-fluid > div.flex-item-fluid > input')
                 subject.click()
                 subject.send_keys(text_subject)
 
@@ -155,7 +155,7 @@ class Protonmail:
 
         # Email address
         email_address = self.driver.find_element(By.CSS_SELECTOR,
-                                                 'div.flex-item-fluid:nth-of-type(1) > div.flex-item-fluid:nth-of-type(1) > div.composer-addresses-container > div.flex-item-fluid > div.flex-item-fluid > input')
+            'div.flex-item-fluid:nth-of-type(1) > div.flex-item-fluid:nth-of-type(1) > div.composer-addresses-container > div.flex-item-fluid > div.flex-item-fluid > input')
         email_address.click()
         email_address.send_keys(self.email)
         email_address.send_keys(Keys.ENTER)
@@ -165,7 +165,7 @@ class Protonmail:
         text_subject = mailing.random_string()
         logger.info(f'Random string subject: {text_subject}')
         subject = self.driver.find_element(By.CSS_SELECTOR,
-                                           'div.flex-item-fluid:nth-of-type(1) > div.flex-item-fluid:nth-of-type(1) > div.composer-meta > div.mt0.mb0-5 > div.flex-item-fluid > div.flex-item-fluid > input')
+            'div.flex-item-fluid:nth-of-type(1) > div.flex-item-fluid:nth-of-type(1) > div.composer-meta > div.mt0.mb0-5 > div.flex-item-fluid > div.flex-item-fluid > input')
         subject.click()
         subject.send_keys(text_subject)
 
@@ -205,11 +205,9 @@ class Protonmail:
         # # Select all messages
         self.driver.find_element(By.XPATH, "//input[@id='idSelectAll']").click()
         # # Select last
-        self.driver.find_element(By.CSS_SELECTOR,
-                                 "div.flex.flex-nowrap:nth-child(2) > label.item-checkbox-label").click()
+        self.driver.find_element(By.CSS_SELECTOR, "div.flex.flex-nowrap:nth-child(2) > label.item-checkbox-label").click()
         # # Click move to trash
-        self.driver.find_element(By.CSS_SELECTOR,
-                                 "div.flex:nth-child(1) > button.flex.flex-item-noshrink:nth-child(7)").click()
+        self.driver.find_element(By.CSS_SELECTOR, "div.flex:nth-child(1) > button.flex.flex-item-noshrink:nth-child(7)").click()
         # You have 1 message stored in this folder
         last_message = self.driver.find_element(By.CSS_SELECTOR, "p.mb2.text-keep-space:nth-child(2) > strong")
 
