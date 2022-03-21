@@ -23,6 +23,7 @@ email = [
     'info@ms.icbc.com.cn'
 ]
 
+
 class Protonmail:
     def __init__(self, email, password, browser='Chrome'):
         options = Options()
@@ -71,8 +72,8 @@ class Protonmail:
                 self.driver.find_element(By.CSS_SELECTOR, 'button.text-bold.mt0-25.w100.no-mobile').click()
 
                 # Give email address
-                email_address = self.driver.find_element(By.CSS_SELECTOR, 
-                    'div.flex-item-fluid:nth-of-type(1) > div.flex-item-fluid:nth-of-type(1) > div.composer-addresses-container > div.flex-item-fluid > div.flex-item-fluid > input') 
+                email_address = self.driver.find_element(By.CSS_SELECTOR,
+                                                         'div.flex-item-fluid:nth-of-type(1) > div.flex-item-fluid:nth-of-type(1) > div.composer-addresses-container > div.flex-item-fluid > div.flex-item-fluid > input')
                 email_address.click()
                 email_address.send_keys(emails)
                 email_address.send_keys(Keys.ENTER)
@@ -81,8 +82,8 @@ class Protonmail:
                 # Give text subject
                 text_subject = mailing.random_string()
                 logger.info(f'Random string subject: {text_subject}')
-                subject = self.driver.find_element(By.CSS_SELECTOR, 
-                    'div.flex-item-fluid:nth-of-type(1) > div.flex-item-fluid:nth-of-type(1) > div.composer-meta > div.mt0.mb0-5 > div.flex-item-fluid > div.flex-item-fluid > input')
+                subject = self.driver.find_element(By.CSS_SELECTOR,
+                                                   'div.flex-item-fluid:nth-of-type(1) > div.flex-item-fluid:nth-of-type(1) > div.composer-meta > div.mt0.mb0-5 > div.flex-item-fluid > div.flex-item-fluid > input')
                 subject.click()
                 subject.send_keys(text_subject)
 
@@ -132,7 +133,8 @@ class Protonmail:
             key_mail = self.driver.find_element(By.CSS_SELECTOR, 'h1.message-conversation-summary-header > span')
             key.append(key_mail.text)  # Added is theme of mail
 
-            value_body_of_mail = self.driver.find_element(By.CSS_SELECTOR, 'h1.message-conversation-summary-header > span')
+            value_body_of_mail = self.driver.find_element(By.CSS_SELECTOR,
+                                                          'h1.message-conversation-summary-header > span')
             value.append(value_body_of_mail.text)  # Added is body of mail
 
         # Added dictionary: key, value
@@ -152,8 +154,8 @@ class Protonmail:
         self.driver.find_element(By.CSS_SELECTOR, 'button.button-large').click()
 
         # Email address
-        email_address = self.driver.find_element(By.CSS_SELECTOR, 
-            'div.flex-item-fluid:nth-of-type(1) > div.flex-item-fluid:nth-of-type(1) > div.composer-addresses-container > div.flex-item-fluid > div.flex-item-fluid > input') 
+        email_address = self.driver.find_element(By.CSS_SELECTOR,
+                                                 'div.flex-item-fluid:nth-of-type(1) > div.flex-item-fluid:nth-of-type(1) > div.composer-addresses-container > div.flex-item-fluid > div.flex-item-fluid > input')
         email_address.click()
         email_address.send_keys(self.email)
         email_address.send_keys(Keys.ENTER)
@@ -162,8 +164,8 @@ class Protonmail:
         # Text subject
         text_subject = mailing.random_string()
         logger.info(f'Random string subject: {text_subject}')
-        subject = self.driver.find_element(By.CSS_SELECTOR, 
-            'div.flex-item-fluid:nth-of-type(1) > div.flex-item-fluid:nth-of-type(1) > div.composer-meta > div.mt0.mb0-5 > div.flex-item-fluid > div.flex-item-fluid > input')
+        subject = self.driver.find_element(By.CSS_SELECTOR,
+                                           'div.flex-item-fluid:nth-of-type(1) > div.flex-item-fluid:nth-of-type(1) > div.composer-meta > div.mt0.mb0-5 > div.flex-item-fluid > div.flex-item-fluid > input')
         subject.click()
         subject.send_keys(text_subject)
 
@@ -203,9 +205,11 @@ class Protonmail:
         # # Select all messages
         self.driver.find_element(By.XPATH, "//input[@id='idSelectAll']").click()
         # # Select last
-        self.driver.find_element(By.CSS_SELECTOR, "div.flex.flex-nowrap:nth-child(2) > label.item-checkbox-label").click()
+        self.driver.find_element(By.CSS_SELECTOR,
+                                 "div.flex.flex-nowrap:nth-child(2) > label.item-checkbox-label").click()
         # # Click move to trash
-        self.driver.find_element(By.CSS_SELECTOR, "div.flex:nth-child(1) > button.flex.flex-item-noshrink:nth-child(7)").click()
+        self.driver.find_element(By.CSS_SELECTOR,
+                                 "div.flex:nth-child(1) > button.flex.flex-item-noshrink:nth-child(7)").click()
         # You have 1 message stored in this folder
         last_message = self.driver.find_element(By.CSS_SELECTOR, "p.mb2.text-keep-space:nth-child(2) > strong")
 
@@ -251,7 +255,7 @@ class Protonmail:
                    'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
                    'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
-        # Sum of two values 
+        # Sum of two values
         sum_theme_body = theme + body
         numbers_without_text = sum_theme_body
 
@@ -268,7 +272,7 @@ class Protonmail:
 
 if __name__ == '__main__':
     # Enter your login credentials here
-    mailing = Protonmail(email='PutynHuilo@protonmail.com', password='VBdkNkv4', browser='Chrome')
+    mailing = Protonmail(email='g12Q2dQCux@protonmail.com', password='g12Q2dQCux', browser='Chrome')
     mailing.login()
     mailing.sending_messages_ten_email()
     mailing.data_from_all_incoming_emails()
