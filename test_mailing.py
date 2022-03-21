@@ -133,8 +133,7 @@ class Protonmail:
             key_mail = self.driver.find_element(By.CSS_SELECTOR, 'h1.message-conversation-summary-header > span')
             key.append(key_mail.text)  # Added is theme of mail
 
-            value_body_of_mail = self.driver.find_element(By.CSS_SELECTOR,
-                                                          'h1.message-conversation-summary-header > span')
+            value_body_of_mail = self.driver.find_element(By.CSS_SELECTOR, 'h1.message-conversation-summary-header > span')
             value.append(value_body_of_mail.text)  # Added is body of mail
 
         # Added dictionary: key, value
@@ -212,7 +211,6 @@ class Protonmail:
         last_message = self.driver.find_element(By.CSS_SELECTOR, "p.mb2.text-keep-space:nth-child(2) > strong")
 
         self.driver.set_page_load_timeout(10)
-        print(last_message.text)
         assert last_message.text == "1 conversation"
         logger.warning(f'You have 1 conversation stored in this folder: {last_message.text}')
 
